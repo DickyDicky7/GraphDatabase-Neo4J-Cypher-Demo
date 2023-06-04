@@ -1,5 +1,5 @@
 // Content-Based Filtering
-
+// NOTE: Angela Thompson rated Spider-Man 2
 
 MATCH     ( user:User { name: "Angela Thompson" } )-[ :RATED ]->
           ( movie_1:Movie )-[ :IN_GENRE ]->( :Genre )<-[ :IN_GENRE ]-( movie_2:Movie )
