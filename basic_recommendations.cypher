@@ -4,11 +4,10 @@
 MATCH          ( user:User { name: "Angela Thompson" } )-[ rated:RATED ]->( :Movie )
 WHERE            rated.rating >= 3.0
  WITH DISTINCT   rated.rating AS high_rating, user
-MATCH          ( user )-[ rated:RATED ]->( movie_1:Movie )
+MATCH          ( user )-[ :RATED { rating: high_rating } ]->( movie_1:Movie )
       ,        ( movie_1 ) -[ :IN_GENRE ]->( :Genre )<-[ :IN_GENRE ]- ( movie_2:Movie )
       ,        ( movie_1 )<-[ :ACTED_IN ]- ( :Actor ) -[ :ACTED_IN ]->( movie_2       )
-WHERE NOT      ( user )-[ :RATED ]->( movie_2 )
-      AND        rated.rating =  high_rating
+WHERE NOT      ( user )-[ :RATED                         ]->( movie_2       )
  WITH            movie_1, movie_2
 MATCH          ( actor_1:Actor )-[ :ACTED_IN ]->( movie_1 )-[ :IN_GENRE ]->( genre_1:Genre )
 MATCH          ( actor_2:Actor )-[ :ACTED_IN ]->( movie_2 )-[ :IN_GENRE ]->( genre_2:Genre )
