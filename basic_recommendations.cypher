@@ -36,29 +36,39 @@ ORDER BY         movie_1.title ASC
 // Collaborative Filtering
 
 
-// MATCH ( user_1:User { name: "Angela Thompson" } )-[ rated_1:RATED ]->
-//       ( movie:Movie )<-[ rated_2:RATED ]-( user_2:User )
-// WHERE   user_1 <> user_2
-//  WITH   user_1 ,  user_2
-//       , collect(rated_1.rating) AS vector_1
-//       , collect(rated_2.rating) AS vector_2
-//       , collect({ movie_title: movie.title
-//                 , user_1_rating: rated_1.rating
-//                 , user_2_rating: rated_2.rating }) AS ratings
-// RETURN  user_1.name AS  `FIRST USER`
-//       , user_2.name AS `SECOND USER`
-//       , ratings     AS `RATING`
-//       , gds.similarity.euclideanDistance(vector_1, vector_2) AS `SIMILARITY POINTS`
-//                                              ORDER BY `SIMILARITY POINTS` DESC;
+MATCH     ( user_1:User { name: "Angela Thompson" } )-[ rated_1:RATED ]->
+          ( movie:Movie )<-[ rated_2:RATED ]-( user_2:User )
+WHERE       user_1 <> user_2
+ WITH       user_1 ,  user_2
+      ,     collect(rated_1.rating) AS vector_1
+      ,     collect(rated_2.rating) AS vector_2
+      ,     collect({ movie_title  : movie.title
+                    , user_1_rating: rated_1.rating
+                    , user_2_rating: rated_2.rating }) AS ratings
+RETURN      user_1.name AS `1st USER`
+      ,     user_2.name AS `2nd USER`
+      ,     ratings     AS `RATING`
+      ,     gds.similarity.pearson(vector_1, vector_2) AS `SIMILARITY POINTS`
+                                                 ORDER BY `SIMILARITY POINTS` DESC;
 
 
+MATCH     ( user_1:User { name: "Angela Thompson" } )-[ rated_1:RATED ]->
+          ( :Movie )<-[ rated_2:RATED ]-( user_2:User )
+WHERE       user_1 <> user_2
+ WITH       user_1 ,  user_2
+      ,     collect(rated_1.rating) AS vector_1
+      ,     collect(rated_2.rating) AS vector_2
+ WITH       user_1 ,  user_2
+      ,     gds.similarity.pearson(vector_1, vector_2) AS similarity_points
+WHERE       similarity_points >= 0.5
+MATCH     ( user_2 )-[ rated:RATED ]->( movie:Movie )
+WHERE NOT ( user_1 )-[      :RATED ]->( movie       )
+      AND   rated.rating >= 3.0
+ WITH       movie
+      ,     collect({ `HIS/HER NAME`  : user_2.name
+                    , `HIS/HER RATING`: rated.rating }) AS ratings
+WHERE       size(ratings) >= 30
+RETURN      movie.title AS `RECOMMENDED MOVIE`
+      ,     ratings     AS `PEOPLE SAME AS YOU ALSO RATED`
+ORDER BY    movie.title ASC;
 
-// MATCH ( user_1:User { name: "Leonardo" } )-[ watch_1:WATCH ]->( :Show )<-[ watch_2:WATCH ]-( user_2:User )
-// WHERE   user_1 <> user_2
-//  WITH   user_1, user_2
-//       , gds.similarity.cosine(collect(watch_1.rating), collect(watch_2.rating)) AS similarity_points
-//                                                                           ORDER BY similarity_points DESC
-// MATCH ( user_2 )-[ watch_2:WATCH ]->( show:Show )
-// WHERE NOT ( user_1 )-[ :WATCH ]->( show )
-// RETURN  show.name
-//       , sum(similarity_points * watch_2.rating) as score ORDER BY score DESC;av
