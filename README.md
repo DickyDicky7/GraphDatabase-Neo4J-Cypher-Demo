@@ -15,7 +15,7 @@ If two datasets share the exact same members, their Jaccard Similarity Index wil
 
 <div align="center">
 <img alt="Jaccard Similarity Index Formula" width="600" height="200" 
-     src="https://raw.githubusercontent.com/DickyDicky7/GraphDatabase-Neo4J-Cypher-Demo/main/README/Jacard.svg" />
+     src="https://raw.githubusercontent.com/DickyDicky7/GraphDatabase-Neo4J-Cypher-Demo/main/README/Jaccard.svg" />
 </div>
   
 ## Overlap Similarity Index
