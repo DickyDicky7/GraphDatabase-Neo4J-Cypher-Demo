@@ -24,7 +24,7 @@ If two datasets share the exact same members, their Jaccard Similarity Index wil
 The Overlap Similarity Index has the same purpose as the Jaccard Similarity Index, but different meaning.
 </div>
 
-<div align="center" >
+<div align="center" style="color:white;">
 <img alt="Overlap Similarity Index Formula" width="600" height="200" 
      src="https://raw.githubusercontent.com/DickyDicky7/GraphDatabase-Neo4J-Cypher-Demo/main/README/Overlap.svg" />
 </div>
