@@ -1,3 +1,10 @@
+## Basic Recommendation System
+
+<div align="center" >
+<img alt="ContentBasedFiltering_vs_CollaborativeFiltering" width="600" height="200" 
+     src="https://raw.githubusercontent.com/DickyDicky7/GraphDatabase-Neo4J-Cypher-Demo/main/README/ContentBasedFiltering_vs_CollaborativeFiltering.png" />
+</div>
+
 ## Jaccard Similarity Index
 
 <div align="justify">
