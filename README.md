@@ -29,3 +29,15 @@ The Overlap Similarity Index has the same purpose as the Jaccard Similarity Inde
      src="https://raw.githubusercontent.com/DickyDicky7/GraphDatabase-Neo4J-Cypher-Demo/main/README/Overlap.svg" />
 </div>
 
+## Pearson Correlation Coefficient
+
+<div align="justify">
+The Pearson Correlation Coefficient measures the strength of the linear relationship between two variables.
+It has a value between -1 to +1, with a value of -1 meaning a total negative linear correlation, 0 being no correlation, and +1 meaning a total positive correlation.
+</div>
+
+<div align="center" >
+<img alt="Overlap Similarity Index Formula" width="600" height="200" 
+     src="https://raw.githubusercontent.com/DickyDicky7/GraphDatabase-Neo4J-Cypher-Demo/main/README/Pearson.svg" />
+</div>
+
